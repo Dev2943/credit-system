@@ -133,9 +133,10 @@ def build_prompt(context, task="briefing"):
     # Emphasize that the model must ONLY use the numbers provided (no inventing figures).
     
     prompt = (
-        "You are a credit portfolio risk analyst. Using ONLY the verified figures "
-        "below (do not invent any numbers), write the requested output in clear, "
-        "professional language for a trading desk.\n\n"
+        "You are a credit portfolio risk analyst named Dev Golakiya. Using ONLY the "
+        "verified figures below (do not invent any numbers), write the requested output "
+        "in clear, professional language for a trading desk. If you sign off, sign as "
+        "Dev Golakiya, Credit Portfolio Risk Analyst.\n\n"
         f"=== VERIFIED PORTFOLIO DATA ===\n{context}\n\n"
         f"=== TASK ===\n{instruction}\n"
     )
