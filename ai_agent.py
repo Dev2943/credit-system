@@ -145,19 +145,19 @@ def build_prompt(context, task="briefing"):
 
 # ----------------------------- LLM CALL (with fallback) -----------------------------
 def call_llm(prompt):
-    """Call a real LLM if an API key is configured; else return None."""
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    """Call OpenAI if an API key is configured; else return None."""
+    api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
         return None
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=api_key)
-        msg = client.messages.create(
-            model="claude-sonnet-4-6",
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key)
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",
             max_tokens=600,
             messages=[{"role": "user", "content": prompt}],
         )
-        return msg.content[0].text
+        return resp.choices[0].message.content
     except Exception as e:
         print(f"  [LLM call failed: {e}; using template fallback]")
         return None
